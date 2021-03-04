@@ -8,7 +8,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
         <style>
             #list img{
-                width:50px;
+                width:60px;
                 height: 70px;
             }   
             #list{
@@ -52,7 +52,7 @@
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="index.html" target="_self" data-icon="home" data-iconpos="notext">Home</a>
                 <h2>도서정보</h2>
-                <a href="#main" data-icon="back" data-iconpos="notext">back</a>
+                <a href="#main" data-icon="back" data-iconpos="notext">Back</a>
             </div>
             <div data-role="content">
                <img src="" id="image" width=120 height=150>
@@ -68,41 +68,7 @@
         </div>
     </body>
     <script>
-        var size=10;
-        getList();
-        $("#list").on("click","a",function(){
-            var title=$(this).attr("title");
-            var authors=$(this).attr("authors");
-            var contents=$(this).attr("contents")
-            var price=$(this).attr("price");
-            var image=$(this).find("img").attr("src");
-            $("#image").attr("src", image);
-            $("#title").html(title);
-            $("#authors").html(authors + "(" + price + "원)");
-            $("#contents").html(contents);
-            //alert(title + "\n" + authors + "\n" + contents + "\n" + price + "\n" + image);    
-        });
-        $("#btnMore").on("click",function(){
-            size +=5;
-            getList();
-        });
-        $("#txtQuery").on("keydown",function(){
-            size=10;
-            getList();
-        });
-        function getList(){
-            var query=$("#txtQuery").val();
-            $.ajax({
-                type:"get",
-                url:"https://dapi.kakao.com/v3/search/book?target=title",
-                dataType:"json",
-                data:{"query":query,"size":size},
-                headers:{"Authorization": "KakaoAK 2c24467c55f72e8bf88cecfd0c84f74f"},
-                success:function(data){
-                    var temp=Handlebars.compile($("#temp").html());
-                    $("#list").html(temp(data)).listview("refresh");
-                }
-            });
-        }
+        var url="https://dapi.kakao.com/v3/search/book?target=title";
     </script>
+    <script src="script.js"></script>
 </html>
